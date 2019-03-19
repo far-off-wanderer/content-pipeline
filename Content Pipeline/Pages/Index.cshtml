@@ -1,0 +1,105 @@
+﻿@page
+@model Content_Pipeline.Pages.IndexModel
+    <style>
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        table {
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.5);
+            -webkit-backdrop-filter: blur(0.1rem);
+            backdrop-filter: blur(0.1rem);
+            table-layout: fixed;
+            color: white;
+        }
+
+        main {
+            box-shadow: 0 4rem 16rem black;
+        }
+
+        th {
+            border: 0.25rem solid #BE2265;
+            background-color: #BE2265;
+            padding: 0.5rem 0.5rem 0;
+            color: black;
+            text-align: left;
+            font-weight: 100;
+        }
+
+        td {
+            border: 0.25rem solid #BE2265;
+            padding: 0.5rem;
+            box-shadow: 0 0.5rem 1rem black;
+        }
+
+        form {
+            border: 0.25rem solid #2165BC;
+            background: rgba(0, 0, 0, 0.5);
+            -webkit-backdrop-filter: blur(0.1rem);
+            backdrop-filter: blur(0.1rem);
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            grid-template-rows: 1fr;
+            grid-gap: 0.25rem;
+            color: white;
+        }
+
+            form input, form label {
+                border: none;
+                color: inherit;
+                padding: 0.5rem;
+                cursor: pointer;
+            }
+
+        input[type=file] {
+            display: none;
+        }
+
+        input[type=text] {
+            background: #222;
+        }
+
+        input[type=submit] {
+            background: #2165BC;
+            cursor: pointer;
+            font-family: inherit;
+        }
+    </style>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Original Content</th>
+            <th>Processed Content</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var original in Model.Files)
+        {
+            var processed = original.Replace(@"\original\", @"\processed\");
+            <tr>
+                <td>@System.IO.Path.GetFileNameWithoutExtension(original)</td>
+                <td>@System.IO.Path.GetExtension(original).Substring(1)</td>
+                <td>@System.IO.File.ReadAllText(original)</td>
+                @if (System.IO.File.Exists(processed))
+                {
+                    <td>@System.IO.File.ReadAllText(processed)</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<form method="post" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="name" />
+    <label>
+        ...
+        <input type="file" name="file" />
+    </label>
+    <input type="submit" value="add" />
+    @Html.AntiForgeryToken()
+</form>

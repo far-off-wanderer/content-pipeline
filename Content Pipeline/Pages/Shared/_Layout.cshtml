@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Content Pipeline</title>
+    <style>
+    /* questrial-regular - latin */
+    @@font-face {
+        font-family: 'Questrial';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Questrial'), local('Questrial-Regular'), url('../fonts/questrial-v8-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/questrial-v8-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    html {
+        font-family: 'Questrial';
+        height: 100%;
+        background-color: white;
+        background: radial-gradient(transparent 50%, rgba(0, 0, 0, 0.5)), url('https://raw.githubusercontent.com/far-off-wanderer/concept-art/master/impressions/V9jqWVi.png');
+        background-position: center center;
+        background-size: cover;
+        color: white;
+    }
+
+    body {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    * {
+        margin: 0;
+    }
+
+    a {
+        color: inherit;
+        opacity: 0.7;
+    }
+
+    h1 {
+        margin-top: 1rem;
+        text-align: left;
+        text-shadow: 0 0.25rem 1rem black;
+    }
+
+    nav {
+        text-shadow: 0 0.25rem 1rem black;
+        margin: 1rem 0;
+    }
+
+  </style>
+</head>
+<body>
+    <h1>Content Pipeline</h1>
+    <nav>
+        <a href="/">home</a>
+    </nav>
+    <main>
+        @RenderBody()
+    </main>
+</body>
+</html>
